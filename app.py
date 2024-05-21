@@ -8,6 +8,75 @@ app.config['MAIL_USERNAME'] = os.getenv("MAIL_USERNAME")
 app.config['MAIL_PASSWORD'] = os.getenv("MAIL_PASSWORD")
 to_email = os.getenv("MAIL_TOEMAIL")
 
+@app.route('/')
+def index():
+    return '''
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Send Email</title>
+    </head>
+    <body>
+        <h1>Send Email</h1>
+        <form id="emailForm">
+            <label for="from_email">From Email:</label><br>
+            <input type="email" id="from_email" name="from_email" required><br><br>
+
+            <label for="to_email">To Email:</label><br>
+            <input type="email" id="to_email" name="to_email" required><br><br>
+
+            <label for="subject">Subject:</label><br>
+            <input type="text" id="subject" name="subject" required><br><br>
+
+            <label for="html_content">HTML Content:</label><br>
+            <textarea id="html_content" name="html_content" required></textarea><br><br>
+
+            <button type="submit">Send Email</button>
+        </form>
+
+        <script>
+            document.getElementById('emailForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const fromEmail = document.getElementById('from_email').value;
+                const toEmail = document.getElementById('to_email').value;
+                const subject = document.getElementById('subject').value;
+                const htmlContent = document.getElementById('html_content').value;
+
+                const data = {
+                    from_email: fromEmail,
+                    to_email: toEmail,
+                    subject: subject,
+                    html_content: htmlContent
+                };
+
+                fetch('/send_mail', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert('Error: ' + data.error);
+                    } else {
+                        alert('Email sent successfully');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error: ' + error);
+                });
+            });
+        </script>
+    </body>
+    </html>
+    '''
+
 @app.route('/send_mail', methods=['POST'])
 def send_mail():
     data = request.json
