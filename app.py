@@ -1,3 +1,4 @@
+from flask import Flask, request, jsonify
 from SMTPEmail import SMTPEmail
 import os
 
@@ -10,8 +11,6 @@ app = Flask(__name__)
 app.config['MAIL_USERNAME'] = os.getenv("MAIL_USERNAME")
 app.config['MAIL_PASSWORD'] = os.getenv("MAIL_PASSWORD")
 to_email = os.getenv("MAIL_TOEMAIL")
-
-mail = Mail(app)
 
 @app.route('/send_mail', methods=['POST'])
 def send_mail():
