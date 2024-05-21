@@ -64,6 +64,7 @@ def index():
                     if (data.error) {
                         alert('Error: ' + data.error);
                     } else {
+                        document.getElementById('from_email').value = "";
                         alert('Email sent successfully');
                     }
                 })
