@@ -42,7 +42,7 @@ def send_mail():
                     <!-- Header -->
                     <tr>
                         <td align="center" bgcolor="#ffffff" style="padding: 40px 0;">
-                            <h1 style="color: #333333; font-family: Arial, sans-serif;">Join Our AI Model Training Community!</h1>
+                            <h1 style="color: #333333; font-family: Arial, sans-serif;">{subject}</h1>
                         </td>
                     </tr>
                     <!-- Content -->
