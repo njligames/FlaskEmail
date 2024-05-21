@@ -4,10 +4,6 @@ import os
 
 app = Flask(__name__)
 
-# Configure Flask-Mail
-# app.config['MAIL_SERVER'] = os.getenv("MAIL_SERVER")
-# app.config['MAIL_PORT'] = os.getenv("MAIL_PORT")
-# app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = os.getenv("MAIL_USERNAME")
 app.config['MAIL_PASSWORD'] = os.getenv("MAIL_PASSWORD")
 to_email = os.getenv("MAIL_TOEMAIL")
@@ -26,7 +22,7 @@ def send_mail():
     password = os.environ["MAIL_PASSWORD"]
 
     smtpEmail = SMTPEmail()
-    smtpEmail.setSubject(subject)
+    smtpEmail.setSubject("loganjamesfolk.com email!")
 
 
 
@@ -36,7 +32,7 @@ def send_mail():
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join Our AI Model Training Community!</title>
+    <title>{subject}</title>
 </head>
 <body>
     <table width="100%" cellpadding="0" cellspacing="0" border="0">
