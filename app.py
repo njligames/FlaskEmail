@@ -31,5 +31,7 @@ def send_mail():
     smtpEmail.setReceiverEmails([to_email])
     smtpEmail.send(sender_email, password)
 
+    return jsonify({"message": "Email sent successfully"}), 200
+
 if __name__ == '__main__':
     app.run(port=4242)
